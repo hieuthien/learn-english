@@ -7,6 +7,6 @@ document.getElementById('read-sequence').addEventListener('click',()=>{if(isRead
 function stopReading(){isReading=!1;document.getElementById('read-sequence').textContent="Tiếp tục nghe";window.speechSynthesis.cancel()}
 function resetReadButton(){const readButton=document.getElementById('read-sequence');readButton.textContent="Nghe";isReading=!1}
 function readRow(){const rows=document.querySelectorAll('#data-rows tr');if(!isReading)return;if(currentRow>=rows.length){if(isLooping){currentRow=1}else{stopReading();return}}
-rows.forEach(row=>row.classList.remove('active-row'));const currentRowElement=rows[currentRow];currentRowElement.classList.add('active-row');const cells=rows[currentRow].querySelectorAll('td');if(cells.length>=2){const textEnglish=cells[0].textContent;const textVietnamese=cells[1].textContent;speakText(textEnglish,'en-US',0.7,()=>{speakText(textVietnamese,'vi-VN',1,()=>{currentRow++;readRow()})})}}
+rows.forEach(row=>row.classList.remove('active-row'));const currentRowElement=rows[currentRow];currentRowElement.classList.add('active-row');const cells=rows[currentRow].querySelectorAll('td');if(cells.length>=2){const textEnglish=cells[0].textContent;const textVietnamese=cells[2].textContent;speakText(textEnglish,'en-US',0.7,()=>{speakText(textVietnamese,'vi-VN',1,()=>{currentRow++;readRow()})})}}
 function speakText(text,lang,rate=1,onEndCallback){const utterance=new SpeechSynthesisUtterance(text);utterance.lang=lang;utterance.rate=rate;utterance.onend=onEndCallback;window.speechSynthesis.speak(utterance)}
 init()
